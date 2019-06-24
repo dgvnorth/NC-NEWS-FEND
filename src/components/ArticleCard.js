@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "@reach/router";
+import { Router, Link } from "@reach/router";
+import SingleArticle from "./SingleArticle";
 
 const ArticleCard = ({ article }) => {
   return (
@@ -8,6 +9,12 @@ const ArticleCard = ({ article }) => {
       <td>
         <Link to={`${article._id}`}>{article.title}</Link>
       </td>
+      <Router>
+        <SingleArticle
+          path="articles/:article_id"
+          article={this.props.article}
+        />
+      </Router>
     </tr>
   );
 };

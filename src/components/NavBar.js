@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Link } from "@reach/router";
+import { Link } from "@reach/router";
 import "../NavBar.css";
 import styled from "styled-components";
 
@@ -43,13 +43,16 @@ const NavBar = () => {
           <LogInButton>Logged as:</LogInButton>
         </Link>
         <br />
-        <Link to="/topics">
+        <Link to="/topics/all">
+          <Button>All</Button>
+        </Link>
+        <Link to="/topics/coding">
           <Button>Coding</Button>
         </Link>
-        <Link to="/topics">
+        <Link to="/topics/cooking">
           <Button>Cooking</Button>
         </Link>
-        <Link to="/topics">
+        <Link to="/topics/football">
           <Button>Football</Button>
         </Link>
       </Wrapper>
