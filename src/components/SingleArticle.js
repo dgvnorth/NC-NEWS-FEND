@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { fetchArticleById } from "../api";
+import Comments from "./Comments";
 
 class SingleArticle extends Component {
   state = {
@@ -7,25 +8,22 @@ class SingleArticle extends Component {
   };
   render() {
     const { singleArticle } = this.state;
-    // const articleEntries = Object.entries(singleArticle);
-    // console.log(articleEntries);
     return (
       <div>
         <h4>{singleArticle.title}</h4>
-        <ul>
-          <li>Topic: {singleArticle.topic}</li>
-          <li>Author: {singleArticle.author}</li>
-          <li>Body: {singleArticle.body}</li>
-          <li>Created at: {singleArticle.created_at}</li>
-          <li>Comment count: {singleArticle.comment_count}</li>
-          <li>Votes: {singleArticle.votes}</li>
-        </ul>
+        <p>Topic: {singleArticle.topic}</p>
+        <p>Author: {singleArticle.author}</p>
+        <p>Body: {singleArticle.body}</p>
+        <p>Created at: {`${new Date(singleArticle.created_at)}`}</p>
+        <p>Comment count: {singleArticle.comment_count}</p>
+        <p>Votes: {singleArticle.votes}</p>
+        <h4>Comments</h4>
+        <Comments article_id={this.props.article_id} />
       </div>
     );
   }
   componentDidMount() {
     fetchArticleById(this.props.article_id).then(({ article }) => {
-      console.log(article, "IA");
       this.setState({ singleArticle: article });
     });
   }
