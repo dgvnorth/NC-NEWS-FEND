@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { fetchComments } from "../api";
+import { Link } from "@reach/router";
 
 class Comments extends Component {
   state = {
@@ -10,6 +11,9 @@ class Comments extends Component {
     const { comments } = this.state;
     return (
       <div>
+        <Link to="addcomment">
+          <button>Add Comment</button>
+        </Link>
         {comments.map((comment, i) => {
           return (
             <div key={comment.comment_id}>

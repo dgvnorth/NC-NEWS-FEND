@@ -1,15 +1,23 @@
 import React, { Component } from "react";
-// import { fetchArticlesByTopic } from "../api";
+import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import Error from "./Error";
-import * as api from "../api";
+import SortBy from "./SortBy";
 
 class ArticleList extends Component {
   state = {
     articlesByTopic: [],
     error: null,
-    isLoading: true
+    isLoading: true,
+    sortBy: "created_at"
   };
+
+  handleClick = sortByCriteria => {
+    this.setState({
+      sortBy: sortByCriteria
+    });
+  };
+
   render() {
     const { articlesByTopic, error, isLoading } = this.state;
     if (isLoading) return <p>Loading...</p>;
@@ -19,25 +27,17 @@ class ArticleList extends Component {
         <p>
           Number of {this.props.topic} articles: {articlesByTopic.length}
         </p>
-        <table>
-          <tbody>
-            <tr id="allArticles">
-              <th>Topic</th>
-              <th>Title</th>
-            </tr>
-            {articlesByTopic.map((article, i) => {
-              return <ArticleCard article={article} key={i} />;
-            })}
-          </tbody>
-        </table>
+        <SortBy handleClick={this.handleClick} />
+        {articlesByTopic.map((article, i) => {
+          return <ArticleCard article={article} key={i} />;
+        })}
       </div>
     );
   }
 
-  fetchArticles = () => {
-    const { topic } = this.props;
+  fetchArticles = (topic, sort_by) => {
     api
-      .fetchArticlesByTopic(topic)
+      .fetchArticlesByTopic(topic, sort_by)
       .then(articles => {
         this.setState({
           articlesByTopic: articles,
@@ -50,13 +50,14 @@ class ArticleList extends Component {
       });
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.topic !== this.props.topic) {
-      this.fetchArticles();
+  componentDidUpdate(prevProps, prevState) {
+    const { topic } = this.props;
+    if (prevProps.topic !== topic || this.state.sortBy !== prevState.sortBy) {
+      this.fetchArticles(topic, this.state.sortBy);
     }
   }
   componentDidMount() {
-    this.fetchArticles();
+    this.fetchArticles(this.props.topic, this.state.sortBy);
   }
 }
 

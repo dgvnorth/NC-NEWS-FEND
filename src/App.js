@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import ArticleList from "./components/ArticleList";
 import SingleArticle from "./components/SingleArticle";
 import Error from "./components/Error";
+import AddComment from "./components/AddComment";
 
 const App = () => {
   return (
@@ -17,7 +18,7 @@ const App = () => {
         <Home path="/" />
         <ArticleList path="topics/:topic" />
         <ArticleList path="topics/all" />
-        <SingleArticle path="articles/:article_id" />
+        <SingleArticle path="articles/:article_id/*" />
         <Error default />
       </Router>
     </div>

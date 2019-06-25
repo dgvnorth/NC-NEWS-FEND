@@ -1,10 +1,32 @@
 import React, { Component } from "react";
 import { fetchArticleById } from "../api";
 import Comments from "./Comments";
+import axios from "axios";
+import { Router } from "@reach/router";
+import AddComment from "./AddComment";
 
 class SingleArticle extends Component {
   state = {
     singleArticle: {}
+  };
+
+  addNewComment = newComment => {
+    const { singleArticle } = this.state;
+    return axios
+      .post(
+        `https://dgv-nc-news.herokuapp.com/api/articles/${
+          singleArticle.article_id
+        }/comments`,
+        newComment
+      )
+      .then(({ data }) => {
+        this.setState(prevState => {
+          const { singleArticle } = this.state;
+          return {
+            singleArticle: [...singleArticle, data.comment]
+          };
+        });
+      });
   };
   render() {
     const { singleArticle } = this.state;
@@ -18,6 +40,10 @@ class SingleArticle extends Component {
         <p>Comment count: {singleArticle.comment_count}</p>
         <p>Votes: {singleArticle.votes}</p>
         <h4>Comments</h4>
+        <Router>
+          <AddComment path="addcomment" addNewComment={this.addNewComment} />
+        </Router>
+        <br />
         <Comments article_id={this.props.article_id} />
       </div>
     );
