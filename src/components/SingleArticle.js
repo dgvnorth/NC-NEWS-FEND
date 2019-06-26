@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { fetchArticleById } from "../api";
 import Comments from "./Comments";
-import axios from "axios";
 import { Router } from "@reach/router";
 import AddComment from "./AddComment";
+import * as api from "../api";
 
 class SingleArticle extends Component {
   state = {
@@ -11,24 +11,17 @@ class SingleArticle extends Component {
   };
 
   addNewComment = newComment => {
-    console.log("CM");
     const { singleArticle } = this.state;
-    return axios
-      .post(
-        `https://dgv-nc-news.herokuapp.com/api/articles/${
-          singleArticle.article_id
-        }/comments`,
-        newComment
-      )
-      .then(({ data }) => {
-        console.log(data);
-        console.log(singleArticle);
+    api
+      .fetchAddedComment(singleArticle.article_id, newComment)
+      .then(newComment => {
         this.setState(prevState => {
           const { singleArticle } = this.state;
-          return (singleArticle.comment = data.comment);
+          return (singleArticle.comment = newComment.comment);
         });
       });
   };
+
   render() {
     const { singleArticle } = this.state;
     return (

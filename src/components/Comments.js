@@ -1,12 +1,18 @@
 import React, { Component } from "react";
-import { fetchComments } from "../api";
 import { Link } from "@reach/router";
+import * as api from "../api";
 
 class Comments extends Component {
   state = {
     comments: [],
     isLoading: true
   };
+
+  deleteComment = comment_id => {
+    console.log(this.state.comments);
+    api.deleteComment(comment_id).then(() => {});
+  };
+
   render() {
     const { comments } = this.state;
     return (
@@ -22,14 +28,28 @@ class Comments extends Component {
               <p>{`${comment.body}`}</p>
               <p>{`Created at: ${new Date(comment.created_at)}`}</p>
               <p>{`Votes: ${comment.votes}`}</p>
+              <button onClick={() => this.deleteComment(comment.comment_id)}>
+                Delete Comment
+              </button>
             </div>
           );
         })}
       </div>
     );
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.comments.length !== this.state.comments.length) {
+      this.setState({
+        comments: this.state.comments,
+        isLoading: false
+      });
+    }
+  }
+
   componentDidMount() {
-    fetchComments(this.props.article_id)
+    api
+      .fetchComments(this.props.article_id)
       .then(({ comments }) => {
         this.setState({ comments: comments, isLoading: false });
       })

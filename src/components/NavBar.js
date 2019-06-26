@@ -15,20 +15,21 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 
-const LogInButton = styled.button`
-  /* Adapt the colors based on primary prop */
-  background: ${props => (props.primary ? "crimson" : "white")};
-  color: ${props => (props.primary ? "white" : "crimson")};
+// const LogInButton = styled.button`
+//   /* Adapt the colors based on primary prop */
+//   background: ${props => (props.primary ? "crimson" : "white")};
+//   color: ${props => (props.primary ? "white" : "crimson")};
 
-  font-size: 1em;
-  margin-left: 0em;
-  padding: 0.25em 1em;
-  border: 1px solid palevioletred;
-  border-radius: 3px;
-`;
+//   font-size: 1em;
+//   margin-left: 0em;
+//   padding: 0.25em 1em;
+//   border: 1px solid palevioletred;
+//   border-radius: 3px;
+// `;
 
 const Wrapper = styled.section`
-  padding-left: 100px;
+  padding-left: 10px;
+  align: center
   background: white;
 `;
 
@@ -39,9 +40,9 @@ const NavBar = () => {
         <Link to="/">
           <Button primary>Home</Button>
         </Link>
-        <Link to="/">
+        {/* <Link to="/">
           <LogInButton>Logged as:</LogInButton>
-        </Link>
+        </Link> */}
         <br />
         <Link to="/topics/all">
           <Button>All</Button>

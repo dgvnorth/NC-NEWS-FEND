@@ -7,7 +7,6 @@ import Home from "./components/Home";
 import ArticleList from "./components/ArticleList";
 import SingleArticle from "./components/SingleArticle";
 import Error from "./components/Error";
-import AddComment from "./components/AddComment";
 
 const App = () => {
   return (

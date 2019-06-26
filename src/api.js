@@ -36,3 +36,17 @@ export const fetchComments = article_id => {
     return data;
   });
 };
+
+export const fetchAddedComment = (article_id, newComment) => {
+  return request
+    .post(`articles/${article_id}/comments`, newComment)
+    .then(({ data }) => {
+      return data;
+    });
+};
+
+export const deleteComment = comment_id => {
+  return request.delete(`comments/${comment_id}`).then(res => {
+    console.log(res, "inside deleteComment");
+  });
+};

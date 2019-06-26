@@ -5,12 +5,16 @@ class AddComment extends Component {
     newComment: {
       username: "jessjelly",
       body: ""
-    }
+    },
+    bodyInput: ""
   };
 
   handleSubmit = event => {
     event.preventDefault();
     this.props.addNewComment(this.state.newComment);
+    // this.setState({
+    //   bodyInput: ""
+    // });
   };
 
   handleComment = event => {
@@ -39,7 +43,12 @@ class AddComment extends Component {
         <br />
         <label>
           Enter comment...
-          <input type="text" name="newComment" onChange={this.handleComment} />
+          <input
+            type="text"
+            name="newComment"
+            // value={this.state.bodyInput}
+            onChange={this.handleComment}
+          />
         </label>
         <br />
         <button>Enter</button>
