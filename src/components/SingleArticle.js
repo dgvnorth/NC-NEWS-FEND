@@ -11,6 +11,7 @@ class SingleArticle extends Component {
   };
 
   addNewComment = newComment => {
+    console.log("CM");
     const { singleArticle } = this.state;
     return axios
       .post(
@@ -20,11 +21,11 @@ class SingleArticle extends Component {
         newComment
       )
       .then(({ data }) => {
+        console.log(data);
+        console.log(singleArticle);
         this.setState(prevState => {
           const { singleArticle } = this.state;
-          return {
-            singleArticle: [...singleArticle, data.comment]
-          };
+          return (singleArticle.comment = data.comment);
         });
       });
   };

@@ -24,7 +24,6 @@ class AddComment extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <form onSubmit={this.handleSubmit}>
         <br />
