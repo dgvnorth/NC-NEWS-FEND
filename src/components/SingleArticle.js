@@ -4,6 +4,7 @@ import Comments from "./Comments";
 import { Router } from "@reach/router";
 import AddComment from "./AddComment";
 import * as api from "../api";
+import Voter from "./Voter";
 
 class SingleArticle extends Component {
   state = {
@@ -32,7 +33,11 @@ class SingleArticle extends Component {
         <p>Body: {singleArticle.body}</p>
         <p>Created at: {`${new Date(singleArticle.created_at)}`}</p>
         <p>Comment count: {singleArticle.comment_count}</p>
-        <p>Votes: {singleArticle.votes}</p>
+        {/* <p>Votes: {singleArticle.votes}</p> */}
+        <Voter
+          votes={singleArticle.votes}
+          article_id={singleArticle.article_id}
+        />
         <h4>Comments</h4>
         <Router>
           <AddComment path="addcomment" addNewComment={this.addNewComment} />

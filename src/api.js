@@ -50,3 +50,21 @@ export const deleteComment = comment_id => {
     console.log(res, "inside deleteComment");
   });
 };
+
+export const patchArticleVotes = (article_id, increament) => {
+  return request
+    .patch(`articles/${article_id}`, { inc_votes: increament })
+    .then(({ data }) => {
+      console.log(data);
+      return data.article;
+    });
+};
+
+export const patchCommentVotes = (comment_id, increament) => {
+  return request
+    .patch(`comments/${comment_id}`, { inc_votes: increament })
+    .then(({ data }) => {
+      console.log(data);
+      return data.comment;
+    });
+};

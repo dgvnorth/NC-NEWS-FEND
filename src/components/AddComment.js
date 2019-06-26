@@ -10,8 +10,11 @@ class AddComment extends Component {
   };
 
   handleSubmit = event => {
+    const { newComment } = this.state;
     event.preventDefault();
-    this.props.addNewComment(this.state.newComment);
+    if (newComment.body.length > 0) {
+      this.props.addNewComment(newComment);
+    }
     // this.setState({
     //   bodyInput: ""
     // });

@@ -8,8 +8,8 @@ const Button = styled.button`
   background: ${props => (props.primary ? "crimson" : "white")};
   color: ${props => (props.primary ? "white" : "crimson")};
 
-  font-size: 1em;
-  margin: 0em;
+  font-size: 0.8em;
+  margin: auto;
   padding: 0.25em 1em;
   border: 1px solid palevioletred;
   border-radius: 3px;
@@ -28,8 +28,10 @@ const Button = styled.button`
 // `;
 
 const Wrapper = styled.section`
-  padding-left: 10px;
-  align: center
+  // padding-left: 10px;
+  text-align: center
+  align: center;
+  margin: auto;
   background: white;
 `;
 
@@ -40,10 +42,6 @@ const NavBar = () => {
         <Link to="/">
           <Button primary>Home</Button>
         </Link>
-        {/* <Link to="/">
-          <LogInButton>Logged as:</LogInButton>
-        </Link> */}
-        <br />
         <Link to="/topics/all">
           <Button>All</Button>
         </Link>

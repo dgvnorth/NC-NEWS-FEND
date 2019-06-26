@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import * as api from "../api";
+import Voter from "./Voter";
 
 class Comments extends Component {
   state = {
@@ -27,7 +28,9 @@ class Comments extends Component {
               <p>{`Comment ID: ${comment.comment_id}`}</p>
               <p>{`${comment.body}`}</p>
               <p>{`Created at: ${new Date(comment.created_at)}`}</p>
-              <p>{`Votes: ${comment.votes}`}</p>
+              {/* <p>{`Votes: ${comment.votes}`}</p> */}
+              <Voter votes={comment.votes} comment_id={comment.comment_id} />
+              <br />
               <button onClick={() => this.deleteComment(comment.comment_id)}>
                 Delete Comment
               </button>
