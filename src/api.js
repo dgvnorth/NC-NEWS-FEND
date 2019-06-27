@@ -8,12 +8,13 @@ export const fetchArticles = params => {
   return request.get("/articles", { params });
 };
 
-export const fetchArticlesByTopic = (topic, sort_by) => {
+export const fetchArticlesByTopic = (topic, sort_by, order) => {
   return request
     .get(`articles`, {
       params: {
         topic: topic,
-        sort_by: sort_by
+        sort_by: sort_by,
+        order: order
       }
     })
     .then(({ data }) => {

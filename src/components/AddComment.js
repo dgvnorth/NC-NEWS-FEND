@@ -5,8 +5,7 @@ class AddComment extends Component {
     newComment: {
       username: "jessjelly",
       body: ""
-    },
-    bodyInput: ""
+    }
   };
 
   handleSubmit = event => {
@@ -15,9 +14,9 @@ class AddComment extends Component {
     if (newComment.body.length > 0) {
       this.props.addNewComment(newComment);
     }
-    // this.setState({
-    //   bodyInput: ""
-    // });
+    this.setState({
+      newComment: { ...newComment, body: "" }
+    });
   };
 
   handleComment = event => {
@@ -33,9 +32,9 @@ class AddComment extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <br />
+        <p>Add New Comment</p>
         <label>
-          Enter username...
+          Username...
           <input
             type="text"
             name="username"
@@ -45,16 +44,17 @@ class AddComment extends Component {
         </label>
         <br />
         <label>
-          Enter comment...
+          Comment...
           <input
             type="text"
             name="newComment"
-            // value={this.state.bodyInput}
+            placeholder="enter new comment here"
+            value={this.state.newComment.body}
             onChange={this.handleComment}
           />
         </label>
         <br />
-        <button>Enter</button>
+        <button>Enter Comment</button>
       </form>
     );
   }

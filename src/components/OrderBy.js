@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class SortBy extends Component {
+class Order extends Component {
   state = {
     showMenu: false
   };
@@ -15,19 +15,16 @@ class SortBy extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.showMenu}>Sort by</button>
+        <button onClick={this.showMenu}>Order by</button>
         {this.state.showMenu ? (
           <div className="menu">
-            <button onClick={() => this.props.setSortBy("created_at")}>
-              Date Created
-            </button>
-            <button onClick={() => this.props.setSortBy("comment_count")}>
+            <button onClick={() => this.props.setOrder("asc")}>
               {" "}
-              Comment Count{" "}
+              Ascending{" "}
             </button>
-            <button onClick={() => this.props.setSortBy("votes")}>
+            <button onClick={() => this.props.setOrder("desc")}>
               {" "}
-              Votes{" "}
+              Descending{" "}
             </button>
           </div>
         ) : (
@@ -38,4 +35,4 @@ class SortBy extends Component {
   }
 }
 
-export default SortBy;
+export default Order;
