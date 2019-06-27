@@ -12,6 +12,20 @@ class SingleArticle extends Component {
     error: null
   };
 
+  updateCommentCount = increament => {
+    console.log("helo");
+    this.setState(prevState => {
+      const sum =
+        Number(prevState.singleArticle.comment_count) + Number(increament);
+      return {
+        singleArticle: {
+          ...prevState.singleArticle,
+          comment_count: sum
+        }
+      };
+    });
+  };
+
   render() {
     console.log("rendering");
 
@@ -25,13 +39,16 @@ class SingleArticle extends Component {
         <p>Author: {singleArticle.author}</p>
         <p>Body: {singleArticle.body}</p>
         <p>Created at: {`${new Date(singleArticle.created_at)}`}</p>
-        <p>Comment count: {singleArticle.comment_count}</p>
+        <p>Comment count: {this.state.singleArticle.comment_count} </p>
         <Voter
           votes={singleArticle.votes}
           article_id={singleArticle.article_id}
         />
         <h4>Comments</h4>
-        <Comments article_id={this.props.article_id} />
+        <Comments
+          article_id={this.props.article_id}
+          updateCommentCount={this.updateCommentCount}
+        />
       </div>
     );
   }

@@ -30,12 +30,15 @@ class Comments extends Component {
       .fetchAddedComment(this.props.article_id, newComment)
       .then(newComment => {
         console.log(newComment.comment);
-        this.setState(prevState => {
-          const { comments } = prevState;
-          return {
-            comments: [newComment.comment, ...comments]
-          };
-        });
+        this.setState(
+          prevState => {
+            const { comments } = prevState;
+            return {
+              comments: [newComment.comment, ...comments]
+            };
+          },
+          () => this.props.updateCommentCount(1)
+        );
       });
   };
 
