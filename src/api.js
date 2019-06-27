@@ -47,16 +47,13 @@ export const fetchAddedComment = (article_id, newComment) => {
 };
 
 export const deleteComment = comment_id => {
-  return request.delete(`comments/${comment_id}`).then(res => {
-    console.log(res, "inside deleteComment");
-  });
+  return request.delete(`comments/${comment_id}`).then(res => {});
 };
 
 export const patchArticleVotes = (article_id, increament) => {
   return request
     .patch(`articles/${article_id}`, { inc_votes: increament })
     .then(({ data }) => {
-      console.log(data);
       return data.article;
     });
 };
@@ -65,7 +62,12 @@ export const patchCommentVotes = (comment_id, increament) => {
   return request
     .patch(`comments/${comment_id}`, { inc_votes: increament })
     .then(({ data }) => {
-      console.log(data);
       return data.comment;
     });
+};
+
+export const fetchUser = username => {
+  return request.get(`users/${username}`).then(({ data }) => {
+    return data;
+  });
 };

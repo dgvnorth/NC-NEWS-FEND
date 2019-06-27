@@ -51,6 +51,7 @@ class AddComment extends Component {
             placeholder="enter new comment here"
             value={this.state.newComment.body}
             onChange={this.handleComment}
+            required
           />
         </label>
         <br />
