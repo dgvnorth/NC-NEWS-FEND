@@ -2,29 +2,31 @@ import React, { Component } from "react";
 
 class AddComment extends Component {
   state = {
-    newComment: {
-      username: "jessjelly",
-      body: ""
-    }
+    commentBody: ""
   };
 
   handleSubmit = event => {
-    const { newComment } = this.state;
+    const { commentBody } = this.state;
+    const { username } = this.props;
+    const addedComment = {
+      username: username,
+      body: commentBody
+    };
     event.preventDefault();
-    if (newComment.body.length > 0) {
-      this.props.addNewComment(newComment);
+
+    if (commentBody) {
+      this.props.addNewComment(addedComment);
     }
     this.setState({
-      newComment: { ...newComment, body: "" }
+      commentBody: ""
     });
   };
 
   handleComment = event => {
     const { value } = event.target;
     this.setState(prevState => {
-      const { newComment } = prevState;
       return {
-        newComment: { ...newComment, body: value }
+        commentBody: value
       };
     });
   };
@@ -32,25 +34,26 @@ class AddComment extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <p>Add New Comment</p>
-        <label>
-          Username...
-          <input type="text" name="username" value="jessjelly" />
-        </label>
+        <a className="ui blue ribbon label">Post a Comment</a>
         <br />
+        <br />
+        <p>You are logged as: {this.props.username}</p>
         <label>
-          Comment...
           <input
             type="text"
             name="newComment"
-            placeholder="enter new comment here"
-            value={this.state.newComment.body}
+            placeholder="Enter New Comment Here"
+            value={this.state.commentBody}
             onChange={this.handleComment}
             required
           />
         </label>
         <br />
-        <button>Enter Comment</button>
+        <br />
+        <button className="ui mini labeled icon button">
+          <i className="mail icon" />
+          Enter Comment
+        </button>
       </form>
     );
   }

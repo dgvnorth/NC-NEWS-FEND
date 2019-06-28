@@ -6,7 +6,7 @@ import "./ArticleCard.css";
 const ArticleCard = ({ article }) => {
   return (
     <div className="ui grey segment SingleArticle">
-      <Link to={`../../articles/${article.article_id}`}>
+      <Link to={`/articles/${article.article_id}`}>
         <a className="ui red ribbon label">{article.topic}</a>
         <h4>{article.title}</h4>
         <div className="articleRest">

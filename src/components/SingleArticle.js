@@ -32,7 +32,8 @@ class SingleArticle extends Component {
 
     return (
       <div className="ui container segment">
-        <h4>{singleArticle.title}</h4>
+        <a className="ui grey ribbon label">Article Info</a>
+        <h4>Title: {singleArticle.title}</h4>
         <p>Topic: {singleArticle.topic}</p>
         <p>Author: {singleArticle.author}</p>
         <p>Body: {singleArticle.body}</p>
@@ -44,8 +45,10 @@ class SingleArticle extends Component {
           votes={singleArticle.votes}
           article_id={singleArticle.article_id}
         />
-        <h4>Comments</h4>
+        <br />
+        <br />
         <Comments
+          username={this.props.username}
           article_id={this.props.article_id}
           updateCommentCount={this.updateCommentCount}
         />

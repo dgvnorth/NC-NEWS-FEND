@@ -1,28 +1,24 @@
 import React, { Component } from "react";
-// import OrderBy from "./OrderBy";
 
 class SortBy extends Component {
   state = {
     showMenu: false
   };
 
-  showMenu = event => {
+  displayMenu = event => {
     event.preventDefault();
     this.setState(prevState => {
       return { showMenu: !prevState.showMenu };
     });
   };
 
-  // setOrder = orderCriteria => {
-  //   this.setState({
-  //     order: orderCriteria
-  //   });
-  // };
-
   render() {
     return (
       <div>
-        <button className="mini black ui basic button" onClick={this.showMenu}>
+        <button
+          className="mini black ui basic button"
+          onClick={this.displayMenu}
+        >
           Sort by
         </button>
         {this.state.showMenu ? (
@@ -47,7 +43,6 @@ class SortBy extends Component {
               {" "}
               Votes{" "}
             </button>
-            {/* <div className="menu"> */}
             <button
               className="tiny compact ui blue button"
               onClick={() => this.props.setOrder("asc")}
@@ -62,8 +57,6 @@ class SortBy extends Component {
               {" "}
               Descending{" "}
             </button>
-            {/* </div> */}
-            {/* <OrderBy setOrder={this.setOrder} /> */}
           </div>
         ) : (
           false

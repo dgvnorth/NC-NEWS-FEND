@@ -6,20 +6,20 @@ const NavBar = () => {
   return (
     <div className="ui container">
       <div className="blue ui buttons">
-        <Link to="/">
-          <button className="ui medium button">Home</button>
-        </Link>
+        {/* <Link to="/">
+          <button className="ui tiny button">Home</button>
+        </Link> */}
         <Link to="/topics/all">
-          <button className="ui medium button">All Topics</button>
+          <button className="ui tiny button">Home</button>
         </Link>
         <Link to="/topics/coding">
-          <button className="ui medium button">Coding</button>
+          <button className="ui tiny button">Coding</button>
         </Link>
         <Link to="/topics/cooking">
-          <button className="ui medium button">Cooking</button>
+          <button className="ui tiny button">Cooking</button>
         </Link>
         <Link to="/topics/football">
-          <button className="ui medium button">Football</button>
+          <button className="ui tiny button">Football</button>
         </Link>
       </div>
     </div>

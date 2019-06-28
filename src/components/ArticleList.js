@@ -11,7 +11,18 @@ class ArticleList extends Component {
     error: null,
     isLoading: true,
     sortBy: "created_at",
-    order: "desc"
+    order: "desc",
+    name: "",
+    avatar_url: ""
+  };
+
+  getUserByUsername = username => {
+    api.fetchUser(username).then(({ user }) => {
+      this.setState({
+        avatar_url: user.avatar_url,
+        name: user.name
+      });
+    });
   };
 
   setSortBy = sortByCriteria => {
@@ -31,11 +42,21 @@ class ArticleList extends Component {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <Error error={error} />;
     return (
-      <div className="ui container box">
+      <div className="ui container segment">
         <p>
-          Number of {this.props.topic} articles: {articlesByTopic.length}
+          Hi! You are logged as:{" "}
+          <img
+            src={this.state.avatar_url}
+            alt="user avatar"
+            height="42"
+            width="42"
+            align="middle"
+          />{" "}
+          {this.state.name}
+          <br />
         </p>
         <SortBy setSortBy={this.setSortBy} setOrder={this.setOrder} />
+        Number of {this.props.topic} articles: {articlesByTopic.length}
         {articlesByTopic.map((article, i) => {
           return <ArticleCard article={article} key={i} />;
         })}
@@ -43,9 +64,11 @@ class ArticleList extends Component {
     );
   }
 
-  fetchArticles = (topic, sort_by, order) => {
+  fetchArticles = () => {
+    const { sort_by, order } = this.state;
+    const { topic } = this.props;
     api
-      .fetchArticlesByTopic(topic, sort_by, order)
+      .getArticles(topic, sort_by, order)
       .then(articles => {
         this.setState({
           articlesByTopic: articles,
@@ -65,11 +88,12 @@ class ArticleList extends Component {
       this.state.sortBy !== prevState.sortBy ||
       this.state.order !== prevState.order
     ) {
-      this.fetchArticles(topic, this.state.sortBy, this.state.order);
+      this.fetchArticles();
     }
   }
   componentDidMount() {
-    this.fetchArticles(this.props.topic, this.state.sortBy, this.state.order);
+    this.getUserByUsername(this.props.username);
+    this.fetchArticles();
   }
 }
 

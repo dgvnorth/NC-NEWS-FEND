@@ -11,13 +11,14 @@ class Comments extends Component {
   };
 
   deleteComment = comment_id => {
-    api.deleteComment(comment_id).then(() => {
-      const { comments } = this.state;
-      const updatedComments = comments.filter(
-        comment => comment.comment_id !== comment_id
-      );
-      this.setState({
-        comments: updatedComments
+    api.removeComment(comment_id).then(() => {
+      this.setState(prevState => {
+        const updatedComments = prevState.comments.filter(
+          comment => comment.comment_id !== comment_id
+        );
+        return {
+          comments: updatedComments
+        };
       });
     });
   };
@@ -42,7 +43,15 @@ class Comments extends Component {
     const { comments } = this.state;
     return (
       <div>
-        <AddComment addNewComment={this.addNewComment} />
+        <AddComment
+          addNewComment={this.addNewComment}
+          username={this.props.username}
+        />
+        <br />
+        <br />
+        <a className="ui blue ribbon label">Comments</a>
+        <br />
+        <br />
         {comments.map((comment, i) => {
           return (
             <div key={comment.comment_id}>
@@ -52,11 +61,13 @@ class Comments extends Component {
               <p>{`Created at: ${moment(comment.created_at).format(
                 "LLLL"
               )}`}</p>
-              <Voter votes={comment.votes} comment_id={comment.comment_id} />
+              <Voter
+                votes={comment.votes}
+                comment_id={comment.comment_id}
+                deleteComment={this.deleteComment}
+                updateCommentCount={this.props.updateCommentCount}
+              />
               <br />
-              <button onClick={() => this.deleteComment(comment.comment_id)}>
-                Delete Comment
-              </button>
             </div>
           );
         })}

@@ -4,11 +4,11 @@ const request = axios.create({
   baseURL: "https://dgv-nc-news.herokuapp.com/api/"
 });
 
-export const fetchArticles = params => {
-  return request.get("/articles", { params });
-};
+// export const fetchArticles = params => {
+//   return request.get("/articles", { params });
+// };
 
-export const fetchArticlesByTopic = (topic, sort_by, order) => {
+export const getArticles = (topic, sort_by, order) => {
   return request
     .get(`articles`, {
       params: {
@@ -46,7 +46,7 @@ export const fetchAddedComment = (article_id, newComment) => {
     });
 };
 
-export const deleteComment = comment_id => {
+export const removeComment = comment_id => {
   return request.delete(`comments/${comment_id}`).then(res => {});
 };
 

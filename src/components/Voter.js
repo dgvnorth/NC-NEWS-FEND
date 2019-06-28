@@ -8,7 +8,7 @@ class Voter extends Component {
 
   handleVote = increament => {
     const { article_id, comment_id } = this.props;
-    if (this.props["article_id"]) {
+    if (this.props.article_id) {
       api.patchArticleVotes(article_id, increament).catch(err => {
         this.setState(({ voteChange }) => ({
           voteChange: voteChange - increament
@@ -48,17 +48,18 @@ class Voter extends Component {
           >
             Down
           </button>
+          <button
+            className="ui mini labeled icon button"
+            onClick={() => {
+              this.props.deleteComment(this.props.comment_id);
+              this.props.updateCommentCount(-1);
+            }}
+          >
+            <i className="trash icon" />
+            Delete Comment
+          </button>
         </div>
       </div>
-      // <div>
-      //   <button onClick={() => this.handleVote(1)} disabled={voteChange > 0}>
-      //     Vote Up
-      //   </button>
-      //   <p>Votes: {votes + voteChange}</p>
-      //   <button onClick={() => this.handleVote(-1)} disabled={voteChange < 0}>
-      //     Vote Down
-      //   </button>
-      // </div>
     );
   }
 }
