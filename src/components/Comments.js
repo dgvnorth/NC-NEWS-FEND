@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as api from "../api";
 import Voter from "./Voter";
 import AddComment from "./AddComment";
+import moment from "moment";
 
 class Comments extends Component {
   state = {
@@ -10,13 +11,11 @@ class Comments extends Component {
   };
 
   deleteComment = comment_id => {
-    console.log(this.state.comments);
     api.deleteComment(comment_id).then(() => {
       const { comments } = this.state;
       const updatedComments = comments.filter(
         comment => comment.comment_id !== comment_id
       );
-      console.log(updatedComments);
       this.setState({
         comments: updatedComments
       });
@@ -24,12 +23,9 @@ class Comments extends Component {
   };
 
   addNewComment = newComment => {
-    const { comments } = this.state;
-    console.log(comments);
     api
       .fetchAddedComment(this.props.article_id, newComment)
       .then(newComment => {
-        console.log(newComment.comment);
         this.setState(
           prevState => {
             const { comments } = prevState;
@@ -53,7 +49,9 @@ class Comments extends Component {
               <h4>{`Author: ${comment.author}`}</h4>
               <p>{`Comment ID: ${comment.comment_id}`}</p>
               <p>{`${comment.body}`}</p>
-              <p>{`Created at: ${new Date(comment.created_at)}`}</p>
+              <p>{`Created at: ${moment(comment.created_at).format(
+                "LLLL"
+              )}`}</p>
               <Voter votes={comment.votes} comment_id={comment.comment_id} />
               <br />
               <button onClick={() => this.deleteComment(comment.comment_id)}>

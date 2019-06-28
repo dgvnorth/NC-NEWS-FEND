@@ -1,17 +1,23 @@
 import React from "react";
 import { Link } from "@reach/router";
+import moment from "moment";
+import "./ArticleCard.css";
 
 const ArticleCard = ({ article }) => {
   return (
-    <div>
+    <div className="ui grey segment SingleArticle">
       <Link to={`../../articles/${article.article_id}`}>
+        <a className="ui red ribbon label">{article.topic}</a>
         <h4>{article.title}</h4>
+        <div className="articleRest">
+          <p>Author: {article.author}</p>
+          <p>Created at: {`${moment(article.created_at).format("LLLL")}`}</p>
+          <p>Comments: {article.comment_count}</p>
+          <div className="ui label">
+            <i className="heart icon" /> {article.votes}
+          </div>
+        </div>
       </Link>
-      <p>Topic: {article.topic}</p>
-      <p>Author: {article.author}</p>
-      <p>Created at: {`${new Date(article.created_at)}`}</p>
-      <p>Comment count: {article.comment_count}</p>
-      <p>Votes: {article.votes}</p>
     </div>
   );
 };

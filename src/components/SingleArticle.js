@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { fetchArticleById } from "../api";
+import * as api from "../api";
 import Comments from "./Comments";
-
+import moment from "moment";
 import Voter from "./Voter";
 import Error from "./Error";
 
@@ -13,7 +13,6 @@ class SingleArticle extends Component {
   };
 
   updateCommentCount = increament => {
-    console.log("helo");
     this.setState(prevState => {
       const sum =
         Number(prevState.singleArticle.comment_count) + Number(increament);
@@ -27,18 +26,19 @@ class SingleArticle extends Component {
   };
 
   render() {
-    console.log("rendering");
-
-    const { singleArticle, error } = this.state;
+    const { singleArticle, error, isLoading } = this.state;
+    if (isLoading) return <p>Loading...</p>;
     if (error) return <Error error={error} />;
 
     return (
-      <div>
+      <div className="ui container segment">
         <h4>{singleArticle.title}</h4>
         <p>Topic: {singleArticle.topic}</p>
         <p>Author: {singleArticle.author}</p>
         <p>Body: {singleArticle.body}</p>
-        <p>Created at: {`${new Date(singleArticle.created_at)}`}</p>
+        <p>
+          Created at: {`${moment(singleArticle.created_at).format("LLLL")}`}
+        </p>
         <p>Comment count: {this.state.singleArticle.comment_count} </p>
         <Voter
           votes={singleArticle.votes}
@@ -54,8 +54,8 @@ class SingleArticle extends Component {
   }
 
   componentDidMount() {
-    console.log("mounting");
-    fetchArticleById(this.props.article_id)
+    api
+      .fetchArticleById(this.props.article_id)
       .then(({ article }) => {
         if (article.author) {
           this.setState({
@@ -66,7 +66,6 @@ class SingleArticle extends Component {
         }
       })
       .catch(err => {
-        console.log(err);
         this.setState({ error: err, isLoading: false });
       });
   }

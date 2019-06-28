@@ -35,12 +35,7 @@ class AddComment extends Component {
         <p>Add New Comment</p>
         <label>
           Username...
-          <input
-            type="text"
-            name="username"
-            value="jessjelly"
-            onChange={this.handleComment}
-          />
+          <input type="text" name="username" value="jessjelly" />
         </label>
         <br />
         <label>

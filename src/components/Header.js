@@ -1,22 +1,13 @@
 import React from "react";
-import styled from "styled-components";
-
-const Title = styled.h1`
-  font-family: sans-serif;
-  font-size: 2em;
-  text-align: center;
-  color: crimson;
-`;
-
-const Wrapper = styled.section`
-  padding: 1px;
-  background: white;
-`;
+import "./Header.css";
 
 const Header = () => {
   return (
-    <Wrapper>
-      <Title>
+    <div className="ui container" id="box">
+      <h1
+        className="ui large 
+      header"
+      >
         {" "}
         <img
           id="logo"
@@ -24,8 +15,9 @@ const Header = () => {
           alt="Logo"
         />
         {`   NC News`}
-      </Title>
-    </Wrapper>
+      </h1>
+      <br />
+    </div>
   );
 };
 

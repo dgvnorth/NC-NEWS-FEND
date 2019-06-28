@@ -3,7 +3,7 @@ import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import Error from "./Error";
 import SortBy from "./SortBy";
-import OrderBy from "./OrderBy";
+import "./ArticleList.css";
 
 class ArticleList extends Component {
   state = {
@@ -21,7 +21,6 @@ class ArticleList extends Component {
   };
 
   setOrder = orderCriteria => {
-    console.log(orderCriteria);
     this.setState({
       order: orderCriteria
     });
@@ -32,12 +31,11 @@ class ArticleList extends Component {
     if (isLoading) return <p>Loading...</p>;
     if (error) return <Error error={error} />;
     return (
-      <div>
+      <div className="ui container box">
         <p>
           Number of {this.props.topic} articles: {articlesByTopic.length}
         </p>
-        <SortBy setSortBy={this.setSortBy} />
-        <OrderBy setOrder={this.setOrder} />
+        <SortBy setSortBy={this.setSortBy} setOrder={this.setOrder} />
         {articlesByTopic.map((article, i) => {
           return <ArticleCard article={article} key={i} />;
         })}
@@ -56,7 +54,6 @@ class ArticleList extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
         this.setState({ error: err, isLoading: false });
       });
   };

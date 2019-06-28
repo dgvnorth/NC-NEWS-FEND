@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import OrderBy from "./OrderBy";
 
 class SortBy extends Component {
   state = {
@@ -12,23 +13,57 @@ class SortBy extends Component {
     });
   };
 
+  // setOrder = orderCriteria => {
+  //   this.setState({
+  //     order: orderCriteria
+  //   });
+  // };
+
   render() {
     return (
       <div>
-        <button onClick={this.showMenu}>Sort by</button>
+        <button className="mini black ui basic button" onClick={this.showMenu}>
+          Sort by
+        </button>
         {this.state.showMenu ? (
           <div className="menu">
-            <button onClick={() => this.props.setSortBy("created_at")}>
+            <button
+              className="tiny compact ui grey button"
+              onClick={() => this.props.setSortBy("created_at")}
+            >
               Date Created
             </button>
-            <button onClick={() => this.props.setSortBy("comment_count")}>
+            <button
+              className="tiny compact ui grey button"
+              onClick={() => this.props.setSortBy("comment_count")}
+            >
               {" "}
               Comment Count{" "}
             </button>
-            <button onClick={() => this.props.setSortBy("votes")}>
+            <button
+              className="tiny compact ui grey button"
+              onClick={() => this.props.setSortBy("votes")}
+            >
               {" "}
               Votes{" "}
             </button>
+            {/* <div className="menu"> */}
+            <button
+              className="tiny compact ui blue button"
+              onClick={() => this.props.setOrder("asc")}
+            >
+              {" "}
+              Ascending{" "}
+            </button>
+            <button
+              className="tiny compact ui blue button"
+              onClick={() => this.props.setOrder("desc")}
+            >
+              {" "}
+              Descending{" "}
+            </button>
+            {/* </div> */}
+            {/* <OrderBy setOrder={this.setOrder} /> */}
           </div>
         ) : (
           false
