@@ -12,10 +12,10 @@ class SingleArticle extends Component {
     error: null
   };
 
-  updateCommentCount = increament => {
+  updateCommentCount = increment => {
     this.setState(prevState => {
       const sum =
-        Number(prevState.singleArticle.comment_count) + Number(increament);
+        Number(prevState.singleArticle.comment_count) + Number(increment);
       return {
         singleArticle: {
           ...prevState.singleArticle,
@@ -27,7 +27,19 @@ class SingleArticle extends Component {
 
   render() {
     const { singleArticle, error, isLoading } = this.state;
-    if (isLoading) return <p>Loading...</p>;
+    const { article_id, username } = this.props;
+
+    if (isLoading)
+      return (
+        <div className="ui segment">
+          <br />
+          <br />
+          <div className="ui active inverted dimmer">
+            <div className="ui text loader">Loading</div>
+          </div>
+          <p />
+        </div>
+      );
     if (error) return <Error error={error} />;
 
     return (
@@ -40,7 +52,7 @@ class SingleArticle extends Component {
         <p>
           Created at: {`${moment(singleArticle.created_at).format("LLLL")}`}
         </p>
-        <p>Comment count: {this.state.singleArticle.comment_count} </p>
+        <p>Comment count: {singleArticle.comment_count} </p>
         <Voter
           votes={singleArticle.votes}
           article_id={singleArticle.article_id}
@@ -48,8 +60,8 @@ class SingleArticle extends Component {
         <br />
         <br />
         <Comments
-          username={this.props.username}
-          article_id={this.props.article_id}
+          username={username}
+          article_id={article_id}
           updateCommentCount={this.updateCommentCount}
         />
       </div>
@@ -57,8 +69,9 @@ class SingleArticle extends Component {
   }
 
   componentDidMount() {
+    const { article_id } = this.props;
     api
-      .fetchArticleById(this.props.article_id)
+      .fetchArticleById(article_id)
       .then(({ article }) => {
         if (article.author) {
           this.setState({

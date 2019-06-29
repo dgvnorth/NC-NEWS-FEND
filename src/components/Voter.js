@@ -6,29 +6,29 @@ class Voter extends Component {
     voteChange: 0
   };
 
-  handleVote = increament => {
+  handleVote = increment => {
     const { article_id, comment_id } = this.props;
     if (this.props.article_id) {
-      api.patchArticleVotes(article_id, increament).catch(err => {
+      api.patchArticleVotes(article_id, increment).catch(err => {
         this.setState(({ voteChange }) => ({
-          voteChange: voteChange - increament
+          voteChange: voteChange - increment
         }));
       });
     } else {
-      api.patchCommentVotes(comment_id, increament).catch(err => {
+      api.patchCommentVotes(comment_id, increment).catch(err => {
         this.setState(({ voteChange }) => ({
-          voteChange: voteChange - increament
+          voteChange: voteChange - increment
         }));
       });
     }
     this.setState(({ voteChange }) => ({
-      voteChange: voteChange + increament
+      voteChange: voteChange + increment
     }));
   };
 
   render() {
     const { voteChange } = this.state;
-    const { votes } = this.props;
+    const { votes, comment_id, deleteComment, updateCommentCount } = this.props;
     return (
       <div>
         <p>Votes: {votes + voteChange}</p>
@@ -51,8 +51,8 @@ class Voter extends Component {
           <button
             className="ui mini labeled icon button"
             onClick={() => {
-              this.props.deleteComment(this.props.comment_id);
-              this.props.updateCommentCount(-1);
+              deleteComment(comment_id);
+              updateCommentCount(-1);
             }}
           >
             <i className="trash icon" />

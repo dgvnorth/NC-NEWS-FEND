@@ -13,6 +13,7 @@ class SortBy extends Component {
   };
 
   render() {
+    const { setSortBy, setOrder } = this.props;
     return (
       <div>
         <button
@@ -25,34 +26,34 @@ class SortBy extends Component {
           <div className="menu">
             <button
               className="tiny compact ui grey button"
-              onClick={() => this.props.setSortBy("created_at")}
+              onClick={() => setSortBy("created_at")}
             >
               Date Created
             </button>
             <button
               className="tiny compact ui grey button"
-              onClick={() => this.props.setSortBy("comment_count")}
+              onClick={() => setSortBy("comment_count")}
             >
               {" "}
               Comment Count{" "}
             </button>
             <button
               className="tiny compact ui grey button"
-              onClick={() => this.props.setSortBy("votes")}
+              onClick={() => setSortBy("votes")}
             >
               {" "}
               Votes{" "}
             </button>
             <button
               className="tiny compact ui blue button"
-              onClick={() => this.props.setOrder("asc")}
+              onClick={() => setOrder("asc")}
             >
               {" "}
               Ascending{" "}
             </button>
             <button
               className="tiny compact ui blue button"
-              onClick={() => this.props.setOrder("desc")}
+              onClick={() => setOrder("desc")}
             >
               {" "}
               Descending{" "}

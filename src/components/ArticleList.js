@@ -3,7 +3,6 @@ import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import Error from "./Error";
 import SortBy from "./SortBy";
-import "./ArticleList.css";
 
 class ArticleList extends Component {
   state = {
@@ -38,25 +37,37 @@ class ArticleList extends Component {
   };
 
   render() {
-    const { articlesByTopic, error, isLoading } = this.state;
-    if (isLoading) return <p>Loading...</p>;
+    const { articlesByTopic, error, isLoading, name, avatar_url } = this.state;
+    const { topic } = this.props;
+
+    if (isLoading)
+      return (
+        <div className="ui segment">
+          <br />
+          <br />
+          <div className="ui active inverted dimmer">
+            <div className="ui text loader">Loading</div>
+          </div>
+          <p />
+        </div>
+      );
     if (error) return <Error error={error} />;
     return (
       <div className="ui container segment">
         <p>
           Hi! You are logged as:{" "}
           <img
-            src={this.state.avatar_url}
+            src={avatar_url}
             alt="user avatar"
             height="42"
             width="42"
             align="middle"
           />{" "}
-          {this.state.name}
+          {name}
           <br />
         </p>
         <SortBy setSortBy={this.setSortBy} setOrder={this.setOrder} />
-        Number of {this.props.topic} articles: {articlesByTopic.length}
+        Number of {topic} articles: {articlesByTopic.length}
         {articlesByTopic.map((article, i) => {
           return <ArticleCard article={article} key={i} />;
         })}
@@ -92,7 +103,8 @@ class ArticleList extends Component {
     }
   }
   componentDidMount() {
-    this.getUserByUsername(this.props.username);
+    const { username } = this.props;
+    this.getUserByUsername(username);
     this.fetchArticles();
   }
 }

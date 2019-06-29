@@ -1,14 +1,10 @@
 import React from "react";
 import { Link } from "@reach/router";
-import "../NavBar.css";
 
 const NavBar = () => {
   return (
     <div className="ui container">
       <div className="blue ui buttons">
-        {/* <Link to="/">
-          <button className="ui tiny button">Home</button>
-        </Link> */}
         <Link to="/topics/all">
           <button className="ui tiny button">Home</button>
         </Link>

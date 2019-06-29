@@ -4,10 +4,6 @@ const request = axios.create({
   baseURL: "https://dgv-nc-news.herokuapp.com/api/"
 });
 
-// export const fetchArticles = params => {
-//   return request.get("/articles", { params });
-// };
-
 export const getArticles = (topic, sort_by, order) => {
   return request
     .get(`articles`, {
@@ -38,7 +34,7 @@ export const fetchComments = article_id => {
   });
 };
 
-export const fetchAddedComment = (article_id, newComment) => {
+export const postComment = (article_id, newComment) => {
   return request
     .post(`articles/${article_id}/comments`, newComment)
     .then(({ data }) => {
@@ -47,20 +43,20 @@ export const fetchAddedComment = (article_id, newComment) => {
 };
 
 export const removeComment = comment_id => {
-  return request.delete(`comments/${comment_id}`).then(res => {});
+  return request.delete(`comments/${comment_id}`);
 };
 
-export const patchArticleVotes = (article_id, increament) => {
+export const patchArticleVotes = (article_id, increment) => {
   return request
-    .patch(`articles/${article_id}`, { inc_votes: increament })
+    .patch(`articles/${article_id}`, { inc_votes: increment })
     .then(({ data }) => {
       return data.article;
     });
 };
 
-export const patchCommentVotes = (comment_id, increament) => {
+export const patchCommentVotes = (comment_id, increment) => {
   return request
-    .patch(`comments/${comment_id}`, { inc_votes: increament })
+    .patch(`comments/${comment_id}`, { inc_votes: increment })
     .then(({ data }) => {
       return data.comment;
     });

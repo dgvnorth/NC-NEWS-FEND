@@ -24,29 +24,26 @@ class Comments extends Component {
   };
 
   addNewComment = newComment => {
-    api
-      .fetchAddedComment(this.props.article_id, newComment)
-      .then(newComment => {
-        this.setState(
-          prevState => {
-            const { comments } = prevState;
-            return {
-              comments: [newComment.comment, ...comments]
-            };
-          },
-          () => this.props.updateCommentCount(1)
-        );
-      });
+    const { article_id, updateCommentCount } = this.props;
+    api.postComment(article_id, newComment).then(newComment => {
+      this.setState(
+        prevState => {
+          const { comments } = prevState;
+          return {
+            comments: [newComment.comment, ...comments]
+          };
+        },
+        () => updateCommentCount(1)
+      );
+    });
   };
 
   render() {
     const { comments } = this.state;
+    const { username, updateCommentCount } = this.props;
     return (
       <div>
-        <AddComment
-          addNewComment={this.addNewComment}
-          username={this.props.username}
-        />
+        <AddComment addNewComment={this.addNewComment} username={username} />
         <br />
         <br />
         <a className="ui blue ribbon label">Comments</a>
@@ -65,7 +62,7 @@ class Comments extends Component {
                 votes={comment.votes}
                 comment_id={comment.comment_id}
                 deleteComment={this.deleteComment}
-                updateCommentCount={this.props.updateCommentCount}
+                updateCommentCount={updateCommentCount}
               />
               <br />
             </div>
@@ -76,17 +73,19 @@ class Comments extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.comments.length !== this.state.comments.length) {
+    const { comments } = this.state;
+    if (prevState.comments.length !== comments.length) {
       this.setState({
-        comments: this.state.comments,
+        comments: comments,
         isLoading: false
       });
     }
   }
 
   componentDidMount() {
+    const { article_id } = this.props;
     api
-      .fetchComments(this.props.article_id)
+      .fetchComments(article_id)
       .then(({ comments }) => {
         this.setState({ comments: comments, isLoading: false });
       })

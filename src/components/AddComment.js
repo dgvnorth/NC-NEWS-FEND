@@ -32,18 +32,20 @@ class AddComment extends Component {
   };
 
   render() {
+    const { username } = this.props;
+    const { commentBody } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <a className="ui blue ribbon label">Post a Comment</a>
         <br />
         <br />
-        <p>You are logged as: {this.props.username}</p>
+        <p>You are logged as: {username}</p>
         <label>
           <input
             type="text"
             name="newComment"
             placeholder="Enter New Comment Here"
-            value={this.state.commentBody}
+            value={commentBody}
             onChange={this.handleComment}
             required
           />

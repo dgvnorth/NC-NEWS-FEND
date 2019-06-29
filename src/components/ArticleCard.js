@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
 import moment from "moment";
-import "./ArticleCard.css";
 
 const ArticleCard = ({ article }) => {
   return (
