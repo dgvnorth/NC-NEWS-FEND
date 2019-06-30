@@ -17,7 +17,7 @@ class SortBy extends Component {
     return (
       <div>
         <button
-          className="mini black ui basic button"
+          className="tiny compact black ui basic button"
           onClick={this.displayMenu}
         >
           Sort by

@@ -19,8 +19,9 @@ class App extends Component {
         <NavBar />
         <Router>
           <ArticleList path="/" username={username} />
-          <ArticleList path="topics/:topic" username={username} />
-          <ArticleList path="topics/all" username={username} />
+          <ArticleList path="topics/:topic/" username={username} />
+          <ArticleList path="topics/all/" username={username} />
+          <ArticleList path="topics/:article_id/" username={username} />
           <SingleArticle path="articles/:article_id/*" username={username} />
           <Error default />
         </Router>

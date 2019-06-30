@@ -3,16 +3,28 @@ import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import Error from "./Error";
 import SortBy from "./SortBy";
+import SearchForm from "./SearchForm";
+import SearchResult from "./SearchResult";
 
 class ArticleList extends Component {
   state = {
-    articlesByTopic: [],
+    articlesArray: [],
+    searchedArticles: [],
     error: null,
     isLoading: true,
     sortBy: "created_at",
     order: "desc",
     name: "",
     avatar_url: ""
+  };
+
+  searchArticles = searchInput => {
+    const { articlesArray } = this.state;
+    const foundArticles = articlesArray.filter(article => {
+      const articleValues = Object.values(article).join("");
+      if (articleValues.match(searchInput)) return article;
+    });
+    this.setState({ searchedArticles: foundArticles });
   };
 
   getUserByUsername = username => {
@@ -37,7 +49,14 @@ class ArticleList extends Component {
   };
 
   render() {
-    const { articlesByTopic, error, isLoading, name, avatar_url } = this.state;
+    const {
+      articlesArray,
+      searchedArticles,
+      error,
+      isLoading,
+      name,
+      avatar_url
+    } = this.state;
     const { topic } = this.props;
 
     if (isLoading)
@@ -52,23 +71,35 @@ class ArticleList extends Component {
         </div>
       );
     if (error) return <Error error={error} />;
+    if (searchedArticles.length > 0)
+      return (
+        <div className="ui container grey raised segment">
+          <p>
+            Hi! You are logged as:{" "}
+            <img
+              className="ui avatar image"
+              src={avatar_url}
+              alt="user avatar"
+            />
+            <span>{name}</span>
+            <br />
+          </p>
+          <SearchResult articles={searchedArticles} />
+        </div>
+      );
+
     return (
-      <div className="ui container segment">
+      <div className="ui container grey raised segment">
         <p>
           Hi! You are logged as:{" "}
-          <img
-            src={avatar_url}
-            alt="user avatar"
-            height="42"
-            width="42"
-            align="middle"
-          />{" "}
-          {name}
+          <img className="ui avatar image" src={avatar_url} alt="user avatar" />
+          <span>{name}</span>
           <br />
         </p>
         <SortBy setSortBy={this.setSortBy} setOrder={this.setOrder} />
-        Number of {topic} articles: {articlesByTopic.length}
-        {articlesByTopic.map((article, i) => {
+        Number of {topic} articles: {articlesArray.length}
+        <SearchForm searchArticles={this.searchArticles} />
+        {articlesArray.map((article, i) => {
           return <ArticleCard article={article} key={i} />;
         })}
       </div>
@@ -76,13 +107,13 @@ class ArticleList extends Component {
   }
 
   fetchArticles = () => {
-    const { sort_by, order } = this.state;
+    const { sortBy, order } = this.state;
     const { topic } = this.props;
     api
-      .getArticles(topic, sort_by, order)
+      .getArticles(topic, sortBy, order)
       .then(articles => {
         this.setState({
-          articlesByTopic: articles,
+          articlesArray: articles,
           isLoading: false,
           error: null
         });
@@ -97,7 +128,8 @@ class ArticleList extends Component {
     if (
       prevProps.topic !== topic ||
       this.state.sortBy !== prevState.sortBy ||
-      this.state.order !== prevState.order
+      this.state.order !== prevState.order ||
+      this.state.searchedArticles !== prevState.searchedArticles
     ) {
       this.fetchArticles();
     }
