@@ -46,7 +46,7 @@ class Comments extends Component {
         <AddComment addNewComment={this.addNewComment} username={username} />
         <br />
         <br />
-        <a className="ui blue ribbon label">Comments</a>
+        <button className="ui blue ribbon label">Comments</button>
         <br />
         <br />
         {comments.map((comment, i) => {

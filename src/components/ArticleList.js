@@ -3,13 +3,10 @@ import * as api from "../api";
 import ArticleCard from "./ArticleCard";
 import Error from "./Error";
 import SortBy from "./SortBy";
-import SearchForm from "./SearchForm";
-import SearchResult from "./SearchResult";
 
 class ArticleList extends Component {
   state = {
     articlesArray: [],
-    searchedArticles: [],
     error: null,
     isLoading: true,
     sortBy: "created_at",
@@ -19,12 +16,9 @@ class ArticleList extends Component {
   };
 
   searchArticles = searchInput => {
-    const { articlesArray } = this.state;
-    const foundArticles = articlesArray.filter(article => {
-      const articleValues = Object.values(article).join("");
-      if (articleValues.match(searchInput)) return article;
+    this.setState({
+      keywords: searchInput
     });
-    this.setState({ searchedArticles: foundArticles });
   };
 
   getUserByUsername = username => {
@@ -49,16 +43,8 @@ class ArticleList extends Component {
   };
 
   render() {
-    const {
-      articlesArray,
-      searchedArticles,
-      error,
-      isLoading,
-      name,
-      avatar_url
-    } = this.state;
+    const { articlesArray, error, isLoading, name, avatar_url } = this.state;
     const { topic } = this.props;
-
     if (isLoading)
       return (
         <div className="ui segment">
@@ -71,23 +57,6 @@ class ArticleList extends Component {
         </div>
       );
     if (error) return <Error error={error} />;
-    if (searchedArticles.length > 0)
-      return (
-        <div className="ui container grey raised segment">
-          <p>
-            Hi! You are logged as:{" "}
-            <img
-              className="ui avatar image"
-              src={avatar_url}
-              alt="user avatar"
-            />
-            <span>{name}</span>
-            <br />
-          </p>
-          <SearchResult articles={searchedArticles} />
-        </div>
-      );
-
     return (
       <div className="ui container grey raised segment">
         <p>
@@ -98,7 +67,6 @@ class ArticleList extends Component {
         </p>
         <SortBy setSortBy={this.setSortBy} setOrder={this.setOrder} />
         Number of {topic} articles: {articlesArray.length}
-        <SearchForm searchArticles={this.searchArticles} />
         {articlesArray.map((article, i) => {
           return <ArticleCard article={article} key={i} />;
         })}
@@ -107,10 +75,10 @@ class ArticleList extends Component {
   }
 
   fetchArticles = () => {
-    const { sortBy, order } = this.state;
+    const { sortBy, order, keywords } = this.state;
     const { topic } = this.props;
     api
-      .getArticles(topic, sortBy, order)
+      .getArticles(topic, sortBy, order, keywords)
       .then(articles => {
         this.setState({
           articlesArray: articles,
@@ -125,11 +93,11 @@ class ArticleList extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { topic } = this.props;
+    const { sortBy, order } = this.state;
     if (
       prevProps.topic !== topic ||
-      this.state.sortBy !== prevState.sortBy ||
-      this.state.order !== prevState.order ||
-      this.state.searchedArticles !== prevState.searchedArticles
+      sortBy !== prevState.sortBy ||
+      order !== prevState.order
     ) {
       this.fetchArticles();
     }

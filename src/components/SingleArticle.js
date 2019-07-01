@@ -44,7 +44,7 @@ class SingleArticle extends Component {
 
     return (
       <div className="ui container segment">
-        <a className="ui grey ribbon label">Article Info</a>
+        <button className="ui grey ribbon label">Article Info</button>
         <h4>Title: {singleArticle.title}</h4>
         <p>Topic: {singleArticle.topic}</p>
         <p>Author: {singleArticle.author}</p>

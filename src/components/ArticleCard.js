@@ -6,7 +6,7 @@ const ArticleCard = ({ article }) => {
   return (
     <div className="ui grey raised segment SingleArticle">
       <Link to={`/articles/${article.article_id}`}>
-        <a className="ui red ribbon label">{article.topic}</a>
+        <button className="ui red ribbon label">{article.topic}</button>
         <h4>{article.title}</h4>
       </Link>
       <div className="articleRest">

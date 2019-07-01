@@ -1,6 +1,6 @@
 ## NC News
 
-NC News is a reddit style front-end news app. Articles can be filtered by topic and sorted by; the date they were created, the number of comments, and number of votes. User can post comments on articles and can also upvote or downvote articles and comments.
+NC News is a reddit style front-end news app. Articles can be filtered by topic or specific keywords and sorted by; the date they were created, the number of comments, and number of votes. Users can post comments on articles and can also upvote or downvote articles and comments.
 
 The [App](https://dgv-nc-news.netlify.com/) has been hosted on [Netlity](https://www.netlify.com/) and can be accessed on https://dgv-nc-news.netlify.com/
 
@@ -16,7 +16,7 @@ Ensure that you have at least NodeJS v10.1.0 installed on your machine. JavaScri
 node --version
 ```
 
-Ensure that you have git installed:
+Ensure that you have git installed
 
 ```javascript
 git --version
@@ -24,7 +24,7 @@ git --version
 
 #### Installing
 
-Clone this repository:
+Clone this repository
 
 ```javascript
 git clone https://github.com/dgvnorth/NC-NEWS-FEND

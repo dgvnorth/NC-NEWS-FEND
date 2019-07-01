@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <div className="ui container" id="box">
+    <div className="ui container">
       <h1
         className="ui large 
       header"

@@ -36,7 +36,7 @@ class AddComment extends Component {
     const { commentBody } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
-        <a className="ui blue ribbon label">Post a Comment</a>
+        <button className="ui blue ribbon label">Post a Comment</button>
         <br />
         <br />
         <p>You are logged as: {username}</p>

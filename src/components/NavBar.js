@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <div className="ui container">
       <div className="blue ui buttons">
-        <Link to="/topics/all">
+        <Link to="/">
           <button className="ui tiny button">Home</button>
         </Link>
         <Link to="/topics/coding">
