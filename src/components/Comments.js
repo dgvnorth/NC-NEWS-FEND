@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import * as api from "../api";
-import Voter from "./Voter";
+import CommentVoter from "./CommentVoter";
 import AddComment from "./AddComment";
 import moment from "moment";
 
@@ -58,7 +58,7 @@ class Comments extends Component {
               <p>{`Created at: ${moment(comment.created_at).format(
                 "LLLL"
               )}`}</p>
-              <Voter
+              <CommentVoter
                 votes={comment.votes}
                 comment_id={comment.comment_id}
                 deleteComment={this.deleteComment}

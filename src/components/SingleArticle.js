@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as api from "../api";
 import Comments from "./Comments";
 import moment from "moment";
-import Voter from "./Voter";
+import ArticleVoter from "./ArticleVoter";
 import Error from "./Error";
 
 class SingleArticle extends Component {
@@ -53,7 +53,7 @@ class SingleArticle extends Component {
           Created at: {`${moment(singleArticle.created_at).format("LLLL")}`}
         </p>
         <p>Comment count: {singleArticle.comment_count} </p>
-        <Voter
+        <ArticleVoter
           votes={singleArticle.votes}
           article_id={singleArticle.article_id}
         />
