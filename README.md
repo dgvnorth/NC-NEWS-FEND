@@ -1,6 +1,6 @@
 ## NC News
 
-NC News is a reddit style front-end news app. Articles can be filtered by topic or specific keywords and sorted by; the date they were created, the number of comments, and number of votes. Users can post comments on articles and can also upvote or downvote articles and comments.
+NC News is a reddit style front-end news app. Articles can be filtered by topic and sorted by; the date they were created, the number of comments, and number of votes. Users can post comments on articles and can also upvote or downvote articles and comments.
 
 The [App](https://dgv-nc-news.netlify.com/) has been hosted on [Netlity](https://www.netlify.com/) and can be accessed on https://dgv-nc-news.netlify.com/
 
@@ -52,8 +52,7 @@ npm start
     "react-alert": "^5.5.0",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "semantic-ui": "^2.4.2",
-    "styled-components": "^4.3.2"
+    "semantic-ui": "^2.4.2"
 ```
 
 ### Built with

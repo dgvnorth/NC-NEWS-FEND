@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import * as api from "../api";
 import Comments from "./Comments";
 import moment from "moment";
-import ArticleVoter from "./ArticleVoter";
 import Error from "./Error";
+import ArticleVoter from "./ArticleVoter";
 
 class SingleArticle extends Component {
   state = {
